@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CreditMonitor : MonoBehaviour {
     
@@ -15,7 +16,9 @@ public class CreditMonitor : MonoBehaviour {
         
         if (Input.GetKeyDown(KeyCode.C))
         {
-            Application.LoadLevel("AniCreditScene");
+            //Application.LoadLevel("AniCreditScene");
+            SceneManager.LoadScene("AniCreditScene"); //Requires "Using" (see above)
+            
         }
     }
 }
