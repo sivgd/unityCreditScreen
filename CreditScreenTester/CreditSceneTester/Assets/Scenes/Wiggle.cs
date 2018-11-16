@@ -4,7 +4,9 @@ using UnityEngine;
 using System.IO;
 
 public class Wiggle : MonoBehaviour {
-    private string path = "c:\\vgd\\movement.txt";
+    //private string path = "c:\\vgd\\movement.txt";
+    private string path = "movement.txt";
+    
     public  bool Record;
     public bool Playback;
     private System.IO.StreamReader file;
@@ -12,8 +14,15 @@ public class Wiggle : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        if (Record)
+        {
+            if (File.Exists(path)){
+                File.Delete(path);
+            }
+        }
+
         if (Playback) {
-            file = new StreamReader(@"c:\vgd\movement.txt");
+            file = new StreamReader(path);
         }
 	}
 	
@@ -23,8 +32,11 @@ public class Wiggle : MonoBehaviour {
         var x = Input.GetAxis("Horizontal") * Time.deltaTime * 3.0f;
         var y = Input.GetAxis("Vertical") * Time.deltaTime * 3.0f;
 
-              
-        transform.Translate(x, y, 0);
+        if (!Playback)
+        {
+            transform.Translate(x, y, 0);
+        }
+
         if (Record == true)
         {
             string marker = (Time.deltaTime).ToString() + "\t" + (transform.localPosition.x).ToString() + "\t" + (transform.localPosition.y).ToString() + "\r\n";
